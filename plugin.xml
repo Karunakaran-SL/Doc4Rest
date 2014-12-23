@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            name="Doc4Rest Category"
+            id="Doc4Rest.commands.category">
+      </category>
+      <command
+            name="Generate"
+            categoryId="Doc4Rest.commands.category"
+            id="Doc4Rest.commands.Doc4RestCommand">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            commandId="Doc4Rest.commands.Doc4RestCommand"
+            class="org.k4java.rest.tool.doc.handlers.Doc4RestHandler">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="Doc4Rest.commands.Doc4RestCommand"
+            contextId="org.eclipse.ui.contexts.window"
+            sequence="M1+6"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
+      </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               label="Doc4Rest"
+               mnemonic="M"
+               id="Doc4Rest.menus.Doc4RestMenu">
+            <command
+                  commandId="Doc4Rest.commands.Doc4RestCommand"
+                  mnemonic="S"
+                  id="Doc4Rest.menus.Doc4RestCommand">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="Doc4Rest.toolbars.Doc4RestToolbar">
+            <command
+                  commandId="Doc4Rest.commands.Doc4RestCommand"
+                  icon="icons/sample.gif"
+                  tooltip="Generate Rest Doc"
+                  id="Doc4Rest.toolbars.Doc4RestCommand">
+            </command>
+         </toolbar>
+      </menuContribution>
+   </extension>
+
+</plugin>
