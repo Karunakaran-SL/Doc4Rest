@@ -37,8 +37,8 @@ public class Doc4RestModelManager {
 		List<GServicesPage> list = new ArrayList<GServicesPage>();
 		for(RestServiceModel serviceModel : getModelList())
 		{
-			String serviceName = serviceModel.getJavaDoc().containsKey(Doc4RestConfiguration.getServiceName())? serviceModel.getJavaDoc().get(Doc4RestConfiguration.getServiceName()) : "Service Name Not Provided";
-			String path = serviceModel.getSingleAttriMap().containsKey(Doc4RestConfiguration.getMainRestDecider())? serviceModel.getSingleAttriMap().get(Doc4RestConfiguration.getMainRestDecider()) : "Path Not Provided";
+			String serviceName = serviceModel.getJavaDoc().containsKey(Doc4RestConfiguration.getServiceName())? serviceModel.getJavaDoc().get(Doc4RestConfiguration.getServiceName()) : "";
+			String path = serviceModel.getSingleAttriMap().containsKey(Doc4RestConfiguration.getMainRestDecider())? serviceModel.getSingleAttriMap().get(Doc4RestConfiguration.getMainRestDecider()) : "";
 			if(serviceModel.getSingleAttriMap().containsKey("ApplicationPath"))
 			{
 				path = serviceModel.getSingleAttriMap().get("ApplicationPath") + path;
@@ -47,7 +47,7 @@ public class Doc4RestModelManager {
 			{
 				path = "/";
 			}
-			String desc = serviceModel.getJavaDoc().containsKey(Doc4RestConfiguration.getSummaryKey())? serviceModel.getJavaDoc().get(Doc4RestConfiguration.getSummaryKey()) : "Desc Not Provided";
+			String desc = serviceModel.getJavaDoc().containsKey(Doc4RestConfiguration.getSummaryKey())? serviceModel.getJavaDoc().get(Doc4RestConfiguration.getSummaryKey()) : "";
 			String link = Doc4RestUtil.getServiceRootPath()+Doc4RestConfiguration.getFileSeparator()+"Service"+serviceModel.getId()+".html";
 			GServicesPage page = new GServicesPage(serviceName, path, desc, link);
 			for(String summary : Doc4RestConfiguration.getJavaDocComments())
@@ -91,7 +91,7 @@ public class Doc4RestModelManager {
 			{
 				path = "/";
 			}
-			String desc = model.getJavaDoc().containsKey(Doc4RestConfiguration.getSummaryKey())? model.getJavaDoc().get(Doc4RestConfiguration.getSummaryKey()) : "Desc Not Provided";
+			String desc = model.getJavaDoc().containsKey(Doc4RestConfiguration.getSummaryKey())? model.getJavaDoc().get(Doc4RestConfiguration.getSummaryKey()) : "";
 			String link = Doc4RestUtil.getApiRootPath()+Doc4RestConfiguration.getFileSeparator()+"Api"+model.getId()+".html";
 			GApiPage apiPage = new GApiPage(path, desc, link);
 			for(String operation: Doc4RestConfiguration.getOpertaionsList())
