@@ -133,6 +133,11 @@ public class Doc4RestUtil {
 				}
 			}
 		}
+		//Fix if the @serviceName not provided, then take name from interface name 
+		if(!model.getJavaDoc().containsKey(Doc4RestConfiguration.getServiceName()))
+		{
+			model.getJavaDoc().put(Doc4RestConfiguration.getServiceName(), unCamelCase(unit.getElementName().substring(0, unit.getElementName().indexOf("."))));
+		}
 	}
 	
 	private static String stripKeyForJavaDoc(String key, String text)
@@ -251,15 +256,20 @@ public class Doc4RestUtil {
 			returnString = summary.replace("@", "");
 			String startChar = returnString.charAt(0)+"";
 			returnString = startChar.toUpperCase()+returnString.substring(1, returnString.length());
-			returnString = returnString.replaceAll(
-				      String.format("%s|%s|%s",
-				         "(?<=[A-Z])(?=[A-Z][a-z])",
-				         "(?<=[^A-Z])(?=[A-Z])",
-				         "(?<=[A-Za-z])(?=[^A-Za-z])"
-				      ),
-				      " "
-				   );
+			returnString = unCamelCase(returnString);
 		}
 		return returnString;
+	}
+	
+	public static String unCamelCase(String value)
+	{
+		return value.replaceAll(
+			      String.format("%s|%s|%s",
+					         "(?<=[A-Z])(?=[A-Z][a-z])",
+					         "(?<=[^A-Z])(?=[A-Z])",
+					         "(?<=[A-Za-z])(?=[^A-Za-z])"
+					      ),
+					      " "
+					   );
 	}
 }

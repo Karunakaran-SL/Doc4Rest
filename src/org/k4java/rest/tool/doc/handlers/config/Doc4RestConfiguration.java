@@ -19,7 +19,7 @@ public class Doc4RestConfiguration {
 	static
 	{
 		javaDocComments.add(getSummaryKey());
-		javaDocComments.add("@serviceName");
+		javaDocComments.add(getServiceName());
 		javaDocComments.add("@sampleRequest");
 		javaDocComments.add("@sampleResponse");
 		javaDocComments.add("@sampleRequestXML");
