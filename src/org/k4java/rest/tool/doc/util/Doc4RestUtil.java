@@ -179,6 +179,11 @@ public class Doc4RestUtil {
 			  RestParamsModel model = new RestParamsModel();
 			  model.setName(variable.getElementName());
 			  model.setType(Signature.toString(Signature.getTypeErasure(variable.getTypeSignature())));
+			  //Fix if params given with package name. Trim it for better report
+			  if(model.getType().contains("."))
+			  {
+				  model.setType(model.getType().substring(model.getType().lastIndexOf(".")+1, model.getType().length()));
+			  }
 			  //TODO If needed param annotation needs to parsed then below code will set in method level
 			  model.setAnnotation(parseAnnotations(variable.getSource()));
 			  apiModel.getParamsMap().put(variable.getElementName(), model);
