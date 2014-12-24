@@ -51,7 +51,7 @@
                id="Doc4Rest.toolbars.Doc4RestToolbar">
             <command
                   commandId="Doc4Rest.commands.Doc4RestCommand"
-                  icon="icons/sample.gif"
+                  icon="icons/doc4rest.png"
                   tooltip="Generate Rest Doc"
                   id="Doc4Rest.toolbars.Doc4RestCommand">
             </command>
