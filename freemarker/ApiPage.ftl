@@ -54,7 +54,6 @@ ${api.path}
 </table>
 </#if>
 <br>
-<br>
 <#if attrMap?has_content>
 <b>Rest Attributes</b>
 <table class="smallfonttable" style="table-layout:fixed;"

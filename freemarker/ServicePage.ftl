@@ -24,6 +24,7 @@
 </p>
 <p>${service.path}</p>
 <p>
+<#if sampleMap?has_content>
 <b>Example Usage</b>
 <table class="smallfonttable" style="table-layout:fixed;"
             id="services" border="0" cellpadding="4" cellspacing="6"
@@ -39,6 +40,8 @@
     		  </#list>
             </tbody>
  </table>
+ </#if>
+<#if attrMap?has_content>
  <b>Rest Attributes</b>
 <table class="smallfonttable" style="table-layout:fixed;"
             id="services" border="0" cellpadding="4" cellspacing="6"
@@ -54,6 +57,7 @@
     		  </#list>
             </tbody>
  </table>
+ </#if>
 <p>
 <b>REST Resources</b>
 </p>
