@@ -50,6 +50,9 @@ public class Doc4RestModelManager {
 			String desc = serviceModel.getJavaDoc().containsKey(Doc4RestConfiguration.getSummaryKey())? serviceModel.getJavaDoc().get(Doc4RestConfiguration.getSummaryKey()) : "";
 			String link = Doc4RestUtil.getServiceRootPath()+Doc4RestConfiguration.getFileSeparator()+"Service"+serviceModel.getId()+".html";
 			GServicesPage page = new GServicesPage(serviceName, path, desc, link);
+			page.setLink4Index(Doc4RestConfiguration.getServiceFolderName()+Doc4RestConfiguration.getFileSeparator()+"Service"+serviceModel.getId()+".html");
+			page.setLink4Service("Service"+serviceModel.getId()+".html");
+			page.setLink4Api(".."+Doc4RestConfiguration.getFileSeparator()+"Service"+serviceModel.getId()+".html");
 			for(String summary : Doc4RestConfiguration.getJavaDocComments())
 			{
 				//Skip known summary like desc and serviceName
@@ -94,6 +97,8 @@ public class Doc4RestModelManager {
 			String desc = model.getJavaDoc().containsKey(Doc4RestConfiguration.getSummaryKey())? model.getJavaDoc().get(Doc4RestConfiguration.getSummaryKey()) : "";
 			String link = Doc4RestUtil.getApiRootPath()+Doc4RestConfiguration.getFileSeparator()+"Api"+model.getId()+".html";
 			GApiPage apiPage = new GApiPage(path, desc, link);
+			apiPage.setLink4Service(Doc4RestConfiguration.getAPIFolderName()+Doc4RestConfiguration.getFileSeparator()+"Api"+model.getId()+".html");
+			apiPage.setLink4Api("Api"+model.getId()+".html");
 			for(String operation: Doc4RestConfiguration.getOpertaionsList())
 			{
 				if(model.getSingleAttriMap().containsKey(operation))

@@ -64,7 +64,7 @@
 <ul>
 <#list api?keys as key>
 <li>
-<a href=${api[key].link}>
+<a href=${api[key].link4Service}>
 <wbr></wbr>${key}</a>
 </li>
 <br>  
@@ -82,7 +82,7 @@
 <ul>
 <#list api?keys as key>
 <li>
-<a href=${api[key].link}>
+<a href=${api[key].link4Service}>
 <wbr></wbr>${key}</a>
 </li>
 </#list>

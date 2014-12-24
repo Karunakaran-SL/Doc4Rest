@@ -13,7 +13,7 @@
 <div class="topLogo">
 <a href=${doc4rest.logoLink} title=${doc4rest.logoName} tabindex="1"><img src=${doc4rest.logoImageLink}
                   alt=${doc4rest.logoName}></a> </div>
-		<h1><a href=${service.link}> ${service.serviceName} API</a> </h1>
+		<h1><a href=${service.link4Api}> ${service.serviceName} API</a> </h1>
 </div>
 </div>
 <div class="content">
@@ -109,7 +109,7 @@ ${api.path}
 <ul>
 <#list allApi?keys as key>
 <li>
-<a href=${allApi[key].link}>
+<a href=${allApi[key].link4Api}>
 <wbr></wbr>${key}</a>
 </li>
 </#list>

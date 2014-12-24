@@ -8,6 +8,9 @@ public class GServicesPage {
 	private String path;
 	private String desc;
 	private String link;
+	private String link4Index;
+	private String link4Service;
+	private String link4Api;
 	private Map<String, String> sampleRequestMap = new LinkedHashMap<String, String>();
 	private Map<String, String> serviceAttributeMap = new LinkedHashMap<String, String>();
 	private Map<String, GApiPage> apiMap;
@@ -76,5 +79,34 @@ public class GServicesPage {
 	public void setApiMap(Map<String, GApiPage> apiMap) {
 		this.apiMap = apiMap;
 	}
-	
+
+
+	public String getLink4Index() {
+		return link4Index;
+	}
+
+
+	public String getLink4Service() {
+		return link4Service;
+	}
+
+
+	public String getLink4Api() {
+		return link4Api;
+	}
+
+
+	public void setLink4Index(String link4Index) {
+		this.link4Index = link4Index;
+	}
+
+
+	public void setLink4Service(String link4Service) {
+		this.link4Service = link4Service;
+	}
+
+
+	public void setLink4Api(String link4Api) {
+		this.link4Api = link4Api;
+	}
 }

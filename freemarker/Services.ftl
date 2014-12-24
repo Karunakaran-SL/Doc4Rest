@@ -31,8 +31,8 @@
               </tr>
               <#list services as service>
 				<tr valign="top">
-                   <td><a href="${service.link}"><b>${service.serviceName}</b></a></td>
-                    <td><a href="${service.link}"><b>${service.path}</b></a></td>
+                   <td><a href="${service.link4Index}"><b>${service.serviceName}</b></a></td>
+                    <td><a href="${service.link4Index}"><b>${service.path}</b></a></td>
                     <td>
                     <p>${service.desc}</p>
                 </td>
