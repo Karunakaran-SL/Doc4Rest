@@ -82,7 +82,17 @@ public class Doc4RestUtil {
 						{
 							if(doc.getType().equalsIgnoreCase("string"))
 							{
-								model.getSingleAttriMap().put(doc.getName(), pair.getValue().toString());
+								if(pair.getValue() instanceof Object[])
+								{
+									StringBuilder str = new StringBuilder();
+									for(Object obj : (Object[])pair.getValue())
+									{
+										str.append(obj.toString()).append("\n");
+									}
+									model.getSingleAttriMap().put(doc.getName(), str.toString());
+								}else{
+									model.getSingleAttriMap().put(doc.getName(), pair.getValue().toString());
+								}
 							} else if(doc.getType().equalsIgnoreCase("list"))
 							{
 								if(model.getListAttriMap().containsKey(doc.getName()))
