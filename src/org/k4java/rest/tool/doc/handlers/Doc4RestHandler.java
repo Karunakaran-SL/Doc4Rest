@@ -52,6 +52,20 @@ public class Doc4RestHandler extends AbstractHandler {
 
 	private void generateRestDoc() {
 		Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+		if(Doc4RestConfiguration.getInstance().getTemplateLocation()==null)
+		{
+			DirectoryDialog dirDialog = new DirectoryDialog(shell);
+		    dirDialog.setText("Select Template directory");
+		    String selectedDir = dirDialog.open();
+		    String error  = Doc4RestUtil.validateTemplateFolder(selectedDir);
+		    if(error==null)
+		    {
+		    	Doc4RestConfiguration.getInstance().setTemplateLocation(selectedDir);
+		    }else{
+		    	MessageDialog.openError(shell, "Doc4Rest", error);
+		    	return;
+		    }
+		}
 		DirectoryDialog dirDialog = new DirectoryDialog(shell);
 	    dirDialog.setText("Select Output directory");
 	    String selectedDir = dirDialog.open();
@@ -65,7 +79,7 @@ public class Doc4RestHandler extends AbstractHandler {
 			StringBuilder str = new StringBuilder();
 			for(String error: result.getErrorMessage())
 			{
-				str.append(error).append("\\n");
+				str.append(error).append("\n");
 			}
 			MessageDialog.openError(shell, "Doc4Rest", str.toString());
 		}

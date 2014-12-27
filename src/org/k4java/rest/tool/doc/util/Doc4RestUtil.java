@@ -1,5 +1,8 @@
 package org.k4java.rest.tool.doc.util;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,6 +21,7 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.Javadoc;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TagElement;
+import org.k4java.rest.tool.doc.generator.RestDocGeneratorManager;
 import org.k4java.rest.tool.doc.handlers.MethodVisitor;
 import org.k4java.rest.tool.doc.handlers.RestTypeVisitor;
 import org.k4java.rest.tool.doc.handlers.config.Doc4RestConfiguration;
@@ -25,6 +29,14 @@ import org.k4java.rest.tool.doc.model.RestAPIModel;
 import org.k4java.rest.tool.doc.model.RestDoc;
 import org.k4java.rest.tool.doc.model.RestParamsModel;
 import org.k4java.rest.tool.doc.model.RestServiceModel;
+
+import freemarker.cache.ClassTemplateLoader;
+import freemarker.cache.FileTemplateLoader;
+import freemarker.cache.MultiTemplateLoader;
+import freemarker.cache.TemplateLoader;
+import freemarker.template.Configuration;
+import freemarker.template.TemplateExceptionHandler;
+import freemarker.template.Version;
 
 public class Doc4RestUtil {
 	
@@ -286,5 +298,83 @@ public class Doc4RestUtil {
 					      ),
 					      " "
 					   );
+	}
+
+	public static String validateTemplateFolder(String selectedDir) {
+		String error = null;
+		//Check File exists
+		File templateFolder = new File(selectedDir);
+		if(!templateFolder.exists())
+		{
+			return "Template Folder "+templateFolder.getAbsolutePath()+" not found";
+		}
+		File cssFolder = new File(selectedDir+Doc4RestConfiguration.getFileSeparator()+"css");
+		if(!cssFolder.exists())
+		{
+			return "Css Folder "+cssFolder.getAbsolutePath()+" is missing";
+		}
+		File defaultCss = new File(cssFolder.getAbsolutePath()+Doc4RestConfiguration.getFileSeparator()+"default.css");
+		if(!defaultCss.exists())
+		{
+			return "Css File "+defaultCss.getAbsolutePath()+" is missing";
+		}
+		File doc4RestCss = new File(cssFolder.getAbsolutePath()+Doc4RestConfiguration.getFileSeparator()+"doc4rest.css");
+		if(!doc4RestCss.exists())
+		{
+			return "Css File "+doc4RestCss.getAbsolutePath()+" is missing";
+		}
+		File iconsFolder = new File(selectedDir+Doc4RestConfiguration.getFileSeparator()+"icons");
+		if(!iconsFolder.exists())
+		{
+			return "Icons Folder "+iconsFolder.getAbsolutePath()+" is missing";
+		}
+		File iconImage = new File(iconsFolder.getAbsolutePath()+Doc4RestConfiguration.getFileSeparator()+"doc4rest.png");
+		if(!iconImage.exists())
+		{
+			return "Icon File "+iconImage.getAbsolutePath()+" is missing";
+		}
+		File freemarkerFolder = new File(selectedDir+Doc4RestConfiguration.getFileSeparator()+"freemarker");
+		if(!freemarkerFolder.exists())
+		{
+			return "Freemarker Folder "+freemarkerFolder.getAbsolutePath()+" is missing";
+		}
+		File serviceFile = new File(freemarkerFolder.getAbsolutePath()+Doc4RestConfiguration.getFileSeparator()+"Services.ftl");
+		if(!serviceFile.exists())
+		{
+			return "Template File "+serviceFile.getAbsolutePath()+" is missing";
+		}
+		File servicePageFile = new File(freemarkerFolder.getAbsolutePath()+Doc4RestConfiguration.getFileSeparator()+"ServicePage.ftl");
+		if(!servicePageFile.exists())
+		{
+			return "Template File "+servicePageFile.getAbsolutePath()+" is missing";
+		}
+		File apiFile = new File(freemarkerFolder.getAbsolutePath()+Doc4RestConfiguration.getFileSeparator()+"ApiPage.ftl");
+		if(!apiFile.exists())
+		{
+			return "Template File "+apiFile.getAbsolutePath()+" is missing";
+		}
+		
+		try {
+			//Test the file loading freemarker template
+			FileTemplateLoader ftl1 = new FileTemplateLoader(freemarkerFolder);
+			ClassTemplateLoader ctl = new ClassTemplateLoader(RestDocGeneratorManager.class.getClass(), "");
+			TemplateLoader[] loaders = new TemplateLoader[] { ftl1, ctl };
+			MultiTemplateLoader mtl = new MultiTemplateLoader(loaders);
+			@SuppressWarnings("deprecation")
+			Configuration cfg = new Configuration();
+			//cfg.setClassForTemplateLoading(RestDocGeneratorManager.class, file.getAbsolutePath());
+			// Some other recommended settings:
+			cfg.setIncompatibleImprovements(new Version(2, 3, 20));
+			cfg.setDefaultEncoding("UTF-8");
+			cfg.setLocale(Locale.US);
+			cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+			cfg.setTemplateLoader(mtl);
+			cfg.getTemplate("Services.ftl");
+			cfg.getTemplate("ServicePage.ftl");
+			cfg.getTemplate("ApiPage.ftl");
+		} catch (IOException e) {
+			return "Error in loading template: "+e.getMessage();
+		}
+		return error;
 	}
 }

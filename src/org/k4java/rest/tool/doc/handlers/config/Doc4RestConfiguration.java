@@ -15,6 +15,7 @@ public class Doc4RestConfiguration {
 	private static List<String> opertaionsList = new ArrayList<String>();
 	private boolean isClassScanRequired = false;
 	private String fileLocation;
+	private String templateLocation;
 	private boolean isInterfaceScanRequired = true;
 	static
 	{
@@ -181,5 +182,15 @@ public class Doc4RestConfiguration {
 	public static String getFolderName()
 	{
 		return "Doc4Rest";
+	}
+
+
+	public String getTemplateLocation() {
+		return templateLocation;
+	}
+
+
+	public void setTemplateLocation(String templateLocation) {
+		this.templateLocation = templateLocation;
 	}
 }
